@@ -13,15 +13,6 @@ describe("xml-beautifier", () => {
     expect(beautify(ori)).toEqual(expected)
   })
 
-  it("should use custom indentation characters specified in second argument", () => {
-    const ori = "<div><span></span></div>"
-    const expected = "<div>\n\t<span>\n\t</span>\n</div>"
-
-    expect(beautify(ori, {
-      indentor: "\t"
-    })).toEqual(expected)
-  })
-
   it("should indent self closing tags correctly", () => {
     const ori = `<div><span><img src="" /></span></div>`
     const expected =
@@ -56,5 +47,29 @@ describe("xml-beautifier", () => {
 </div>`
 
     expect(beautify(ori)).toEqual(expected)
+  })
+
+  describe("configuration options", () => {
+    it("should use custom indentation characters specified in `indentor`", () => {
+      const ori = "<div><span></span></div>"
+      const expected = "<div>\n\t<span>\n\t</span>\n</div>"
+
+      expect(beautify(ori, {
+        indentor: "\t"
+      })).toEqual(expected)
+    })
+
+    it("should compress text nodes onto the same line if `textNodesOnSameLine` is truthy", () => {
+      const ori = '<div><span>foo bar</span></div>'
+      const expected =
+`<div>
+    <span>foo bar</span>
+</div>`
+
+      expect(beautify(ori, {
+        textNodesOnSameLine: true
+      })).toEqual(expected)
+    })
+
   })
 })
