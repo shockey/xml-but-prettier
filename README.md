@@ -29,7 +29,7 @@ console.log(xml); // => will output correctly indented elements
 ```
 
 #### Options
-- `indentor`: a custom string to divide lines by
+- `indentor`: a custom string to use for indenting things
 - `textNodesOnSameLine`: compresses text nodes onto the same line as their containing tags
 
 ## License

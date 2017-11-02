@@ -42,8 +42,10 @@ module.exports = (xml, config = {}) => {
     return line;
   })
 
+  indicesToRemove.forEach(idx => rawResult[idx] = null)
+
   return rawResult
-    .filter((val, i) => indicesToRemove.indexOf(i) === -1)
+    .filter(val => !!val)
     .join('\n')
 };
 

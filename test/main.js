@@ -80,6 +80,16 @@ describe("xml-beautifier", () => {
       const startTime = Date.now()
       beautify(xml)
       const endTime = Date.now()
+      expect(endTime - startTime).toBeLessThan(2500)
+    })
+
+    it("should process 2MB of XML quickly with `textNodesOnSameLine`", () => {
+      const xml = fs.readFileSync(__dirname + '/huge.xml', 'utf8')
+      const startTime = Date.now()
+      beautify(xml, {
+        textNodesOnSameLine: true
+      })
+      const endTime = Date.now()
       expect(endTime - startTime).toBeLessThan(5000)
     })
 
