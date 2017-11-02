@@ -1,4 +1,5 @@
 const beautify = require('../src/index');
+const fs = require('fs')
 
 
 describe("xml-beautifier", () => {
@@ -69,6 +70,17 @@ describe("xml-beautifier", () => {
       expect(beautify(ori, {
         textNodesOnSameLine: true
       })).toEqual(expected)
+    })
+
+  })
+
+  describe("performance", () => {
+    it("should process 2MB of XML quickly", () => {
+      const xml = fs.readFileSync(__dirname + '/huge.xml', 'utf8')
+      const startTime = Date.now()
+      beautify(xml)
+      const endTime = Date.now()
+      expect(endTime - startTime).toBeLessThan(5000)
     })
 
   })
