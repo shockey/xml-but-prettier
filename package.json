@@ -5,7 +5,7 @@
   "description": "Beautifies XML documents by putting each tag and text node on their own line and correctly indents everything",
   "main": "dist/index.js",
   "scripts": {
-    "build": "babel src --out-dir dist --presets es2015",
+    "build": "babel src --out-dir dist",
     "prepublish": "npm run build",
     "test": "jest test"
   },
