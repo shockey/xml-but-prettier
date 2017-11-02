@@ -13,7 +13,7 @@ Can be used e.g. if you're using [React as a static page generator][react] and (
 ## Install
 
 ```
-$ npm install --save xml-beautifier
+$ npm install --save xml-but-prettier
 ```
 
 
