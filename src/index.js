@@ -8,16 +8,17 @@ const isClosingTag = str => /<\/+[^>]+>/.test(str);
 const isSelfClosingTag = str => /<[^>]+\/>/.test(str);
 const isOpeningTag = str => isTag(str) && !isClosingTag(str) && !isSelfClosingTag(str);
 
-module.exports = (xml, indent) => {
+module.exports = (xml, config = {}) => {
+  let { indentor } = config
   let depth = 0;
-  indent = indent || '    ';
+  indentor = indentor || '    ';
 
   return splitOnTags(xml).map(item => {
     if (isClosingTag(item)) {
       depth--;
     }
 
-    const line = repeat(indent, depth) + item;
+    const line = repeat(indentor, depth) + item;
 
     if (isOpeningTag(item)) {
       depth++;

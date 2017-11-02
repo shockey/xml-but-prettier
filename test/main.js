@@ -17,7 +17,9 @@ describe("xml-beautifier", () => {
     const ori = "<div><span></span></div>"
     const expected = "<div>\n\t<span>\n\t</span>\n</div>"
 
-    expect(beautify(ori, "\t")).toEqual(expected)
+    expect(beautify(ori, {
+      indentor: "\t"
+    })).toEqual(expected)
   })
 
   it("should indent self closing tags correctly", () => {
