@@ -6,6 +6,7 @@ const splitOnTags = str => str.split(/(<\/?[^>]+>)/g).filter(line => line.trim()
 const isTag = str => /<[^>!]+>/.test(str);
 const isClosingTag = str => /<\/+[^>]+>/.test(str);
 const isSelfClosingTag = str => /<[^>]+\/>/.test(str);
+const isXMLDeclaration = str =>  /<\?+[^>]+>/.test(str);
 const isOpeningTag = str => isTag(str) && !isClosingTag(str) && !isSelfClosingTag(str);
 
 module.exports = (xml, config = {}) => {
@@ -65,6 +66,10 @@ function getType(str) {
   if(isClosingTag(str)) {
     return 'ClosingTag'
   }
+  
+   if(isXMLDeclaration(str)) {
+     return 'XMLDeclaration'
+   }
 
   if(isOpeningTag(str)) {
     return 'OpeningTag'
