@@ -46,7 +46,7 @@ module.exports = (xml, config = {}) => {
       if(type === "ClosingTag" && oneBefore.type === "OpeningTag") {
         // collapse into a single line
         line = `${indentation}${oneBefore.value}${value}`
-        indicesToRemove.push(i-1, i)
+        indicesToRemove.push(i-1)
       }
     }
 
