@@ -9,7 +9,7 @@ const isSelfClosingTag = str => /<[^>]+\/>/.test(str);
 const isOpeningTag = str => isTag(str) && !isClosingTag(str) && !isSelfClosingTag(str);
 
 module.exports = (xml, config = {}) => {
-  let { indentor, textNodesOnSameLine } = config
+  let { indentor, textNodesOnSameLine, emptyNodesOnSameLine } = config
   let depth = 0
   const indicesToRemove = []
   indentor = indentor || '    '
@@ -36,6 +36,17 @@ module.exports = (xml, config = {}) => {
         // collapse into a single line
         line = `${indentation}${twoBefore.value}${oneBefore.value}${value}`
         indicesToRemove.push(i-2, i-1)
+      }
+    }
+
+    if(emptyNodesOnSameLine) {
+      // Lookbehind for [OpeningTag][Text][ClosingTag]
+      const oneBefore = arr[i-1]
+
+      if(type === "ClosingTag" && oneBefore.type === "OpeningTag") {
+        // collapse into a single line
+        line = `${indentation}${oneBefore.value}${value}`
+        indicesToRemove.push(i-1)
       }
     }
 
