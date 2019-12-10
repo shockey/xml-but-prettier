@@ -68,7 +68,8 @@ describe("xml-beautifier", () => {
 </div>`
 
       expect(beautify(ori, {
-        textNodesOnSameLine: true
+        textNodesOnSameLine: true,
+        emptyNodesOnSameLine: true
       })).toEqual(expected)
     })
 
@@ -88,6 +89,17 @@ describe("xml-beautifier", () => {
       const startTime = Date.now()
       beautify(xml, {
         textNodesOnSameLine: true
+      })
+      const endTime = Date.now()
+      expect(endTime - startTime).toBeLessThan(5000)
+    })
+
+    it("should process 2MB of XML quickly with `emptyNodesOnSameLine`", () => {
+      const xml = fs.readFileSync(__dirname + '/huge.xml', 'utf8')
+      const startTime = Date.now()
+      beautify(xml, {
+        textNodesOnSameLine: true,
+        emptyNodesOnSameLine: true
       })
       const endTime = Date.now()
       expect(endTime - startTime).toBeLessThan(5000)
